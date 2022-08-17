@@ -29,6 +29,7 @@ jobs:
 
   build:
     runs-on: ubuntu-runner
+    needs: lint
     steps:
       - name: checkout code
         uses: actions/checkout@v2
