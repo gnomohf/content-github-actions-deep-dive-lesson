@@ -83,6 +83,11 @@ jobs:
             --code S3Bucket=BUCKETNAME,S3Key=${{ github.sha}}.zip \
             --handler lambda_funtion.lambda_handler --runtime python3.8 \
             --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role
+      - name: wait 
+        run: sleep 30
+      - name: destroy lambda funtion
+        if: ${{ always() }}
+        run: aws lambda delete-function --function-name test-function
   deploy:
     runs-on: ubuntu-runner
     needs: test
